@@ -12,6 +12,8 @@
 #define IS_DEBUG_TB6612 0
 #define PWM_MIN 0
 #define PWM_MAX 255
+#define CC 0
+#define CCC 1
 
 /**
  * constructor
@@ -33,7 +35,11 @@ MotorDriverTB6612FNG::MotorDriverTB6612FNG(int pinIn1, int pinIn2, int pinPWM, i
 	pinMode(_pinStdby, OUTPUT);
 }
 
+MotorDriverTB6612FNG::MotorDriverTB6612FNG()
+{
 
+
+}
 
 
 MotorDriverTB6612FNG::~MotorDriverTB6612FNG() {

@@ -8,9 +8,14 @@
 #ifndef MOTORDRIVERTB6612FNG_H_
 #define MOTORDRIVERTB6612FNG_H_
 
+#define CC 0
+#define CCC 1
+
+
 class MotorDriverTB6612FNG {
 public:
 	MotorDriverTB6612FNG(int pinIn1, int pinIn2, int pinPWM, int pinStdby);
+	MotorDriverTB6612FNG();
 	virtual ~MotorDriverTB6612FNG();
 
 	void standbyEnable();
