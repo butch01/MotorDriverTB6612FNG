@@ -14,9 +14,10 @@
 #ifndef MOTORDRIVERTB6612FNG_H_
 #define MOTORDRIVERTB6612FNG_H_
 
-#define IS_DEBUG_TB6612 0
+#define IS_DEBUG_TB6612 1
 
 #include "arduino.h"
+#include "arduinoLog.h"
 
 
 #define PWM_MIN 0

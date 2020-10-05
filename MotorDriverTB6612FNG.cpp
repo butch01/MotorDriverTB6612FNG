@@ -19,7 +19,9 @@
 	#define IS_DEBUG_TB6612_STANDBY_DISABLE 0
 	#define IS_DEBUG_TB6612_STANDBY_ENABLE 0
 	#define IS_DEBUG_TB6612_CALCULATE_DRIVE_MODE 1
-	#define IS_DEBUG_TB6612_MOVE_PWM_TWO_WAY 1
+	#define IS_DEBUG_TB6612_MOVE_PWM_TWO_WAY 0
+	#define IS_DEBUG_TB6612_STOP 1
+	#define IS_DEBUG_TB6612_SHORTBRAKE 1
 
 
 #endif
@@ -77,6 +79,9 @@ MotorDriverTB6612FNG::MotorDriverTB6612FNG()
 //	isBreakModeConfigured 	= false;
 //	myIsBackwardsDrivingLightsOn		= false;
 //	myIsBreakingLightsOn				= false;
+	#if IS_DEBUG_TB6612 == 1
+		className="MotorDriverTB6612FNG";
+	#endif
 	setDefaultValues();
 
 }
@@ -198,11 +203,19 @@ void MotorDriverTB6612FNG::setDirection(int direction)
  */
 void MotorDriverTB6612FNG::shortBreak()
 {
+	#if IS_DEBUG_TB6612_SHORTBRAKE == 1
+		char *functionName="shortBreak";
+		Log.notice(F("%s::%s -()" CR), className, functionName);
+	#endif
 	standbyDisable();
 	digitalWrite(_pinIn1, HIGH);
 	digitalWrite(_pinIn2, HIGH);
 	digitalWrite(_pinPWM, HIGH);
 	myIsBreakingLightsOn=true;
+
+	#if IS_DEBUG_TB6612_SHORTBRAKE == 1
+		Log.notice(F("%s::%s - end" CR));
+	#endif
 }
 
 /**
@@ -210,11 +223,20 @@ void MotorDriverTB6612FNG::shortBreak()
  */
 void MotorDriverTB6612FNG::stop()
 {
+	#if IS_DEBUG_TB6612_STOP == 1
+		char *functionName="stop";
+		Log.notice(F("%s::%s -()" CR), className, functionName);
+	#endif
+
 	standbyDisable();
 	digitalWrite(_pinIn1, LOW);
 	digitalWrite(_pinIn2, LOW);
 	digitalWrite(_pinPWM, HIGH);
 	myIsBreakingLightsOn=true;
+
+	#if IS_DEBUG_TB6612_STOP == 1
+		Log.notice(F("%s::%s - end" CR));
+	#endif
 
 }
 
