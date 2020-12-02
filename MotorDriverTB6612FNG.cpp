@@ -567,7 +567,7 @@ void MotorDriverTB6612FNG::movePWMTwoWay(int speed, int minInput, int maxInput)
 		// check the current drive mode
 		uint8_t driveMode = calculateDriveMode(relativeSpeed, direction);
 
-		if (driveMode == DRIVE_MODE_BRAKE)
+		if (driveMode == DRIVE_MODE_BRAKE || driveMode == DRIVE_MODE_NEUTRAL)
 		{
 			// set breaking intensivity, based on triggers
 			if (relativeSpeed < myBreakeTrigger)
@@ -577,6 +577,7 @@ void MotorDriverTB6612FNG::movePWMTwoWay(int speed, int minInput, int maxInput)
 				#endif
 				// set speed to 0
 				move(direction, 0) ;
+				//move(direction, 2) ;
 			}
 			else if (relativeSpeed >= myBreakeTrigger && relativeSpeed < myShortBrakeTrigger)
 			{
@@ -592,7 +593,8 @@ void MotorDriverTB6612FNG::movePWMTwoWay(int speed, int minInput, int maxInput)
 					Log.verbose(F("%s::%s - #3 driveMode: hardBreak -> call shortBreak()" CR), className, functionName);
 				#endif
 				// break as fast as we can
-				shortBreak();
+//				shortBreak();
+				move(direction, 20) ;
 			}
 		}
 		else
